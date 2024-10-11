@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignIn-SignUp Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="form-body">
+    <div class="form-container">
+      <input type="radio" name="signIn-Up" id="signIn" checked />
+      <label for="signIn" class="signIn-Up-label">Sign In</label>
+      <input type="radio" name="signIn-Up" id="signUp" />
+      <label for="signUp" class="signIn-Up-label">Sign Up</label>
+
+      <div class="form signin-form">
+        <h2>Sign In</h2>
+        <form action="#" method="post">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            id="username"
+            class="userInfo"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            id="pwd-signIn"
+            class="userInfo"
+            required
+          />
+          <button><label for="signIn">Sign In</label></button>
+        </form>
+        <p class="form-text">
+          Don't have an account?
+          <label for="signUp" class="signIn-Up-label">Sign Up Here</label>
+        </p>
+      </div>
+      <div class="form signup-form">
+        <h2>Sign Up</h2>
+        <form action="#" method="post">
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            id="name"
+            class="userInfo"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            id="email"
+            class="userInfo"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            id="pwd-signUp"
+            class="userInfo"
+            required
+          />
+          <button type="submit"><label for="signUp">Sign Up</label></button>
+        </form>
+        <p class="form-text">
+          Already have an account?
+          <label for="signIn" class="signIn-Up-label">Sign In Here</label>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
