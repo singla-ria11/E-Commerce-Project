@@ -331,8 +331,29 @@ margin: 0.5em;
 text-align: center;
 }
 
+.searchBar{
+    width: 82vw;
+    margin: 2.5em auto;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 10px;
+}
+
+.searchBar input, .searchBar select{
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 2px;
+    outline: none;
+    border: 1px solid rgb(195, 195, 195);
+}
+
+.searchBar option{
+    color: whitesmoke;
+    background-color: rgb(56, 62, 62);
+}
+
 #product-list{
-    width: 80vw;
+    width: 82vw;
     margin: 2.5em auto;
 }
 

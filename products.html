@@ -26,7 +26,21 @@
   <body>
     <div class="product-container">
       <h1>E-Commerce Product Page</h1>
-
+      <div class="searchBar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for products..."
+        />
+        <select name="priceRange" id="priceRange">
+          <option value="">Select Price Range</option>
+          <option value="0-50">$0-$50</option>
+          <option value="51-100">$51-$100</option>
+          <option value="101-200">$101-$200</option>
+          <option value="201-300">$201-$300</option>
+          <option value="301-500">$301-$500</option>
+        </select>
+      </div>
       <div id="product-list" class="row"></div>
     </div>
 

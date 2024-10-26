@@ -63,11 +63,29 @@ const products = [
   },
 ];
 
+// DOM Elements
+const searchInputEle = document.getElementById("searchInput");
+const selectRangeEle = document.getElementById("priceRange");
 const productsDiv = document.getElementById("product-list");
 
-products.forEach((p) => {
-  const productCard = `<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-         <div class="card h-100" style="width: 18rem">
+// All Event Listeners
+document.addEventListener("DOMContentLoaded", () => {
+  displayProducts(products);
+});
+
+searchInputEle.addEventListener("keyup", handleSearchQuery);
+selectRangeEle.addEventListener("change", handleSearchQuery);
+
+// All functions.................
+
+// Function to display the products
+function displayProducts(products) {
+  productsDiv.innerHTML = "";
+  console.log(products);
+
+  products.forEach((p) => {
+    const productCard = `<div class="col-xl-3 col-md-4 col-sm-6 mb-4">
+         <div class="card h-100">
            <img src=${p.image} class="card-img-top" alt="product image" />
            <div class="card-body">
             <h5 class="card-title">${p.name}</h5>
@@ -75,9 +93,52 @@ products.forEach((p) => {
               ${p.description}
             </p>
             <p class="card-text">$${p.price}</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
-           </div>
+            <div class="d-flex align-items-center flex-lg-row flex-sm-column gap-2">
+              <input type="number" class="product-quantity w-25" name="productQuantity" min="1" max="100" value="1"/>
+              <a href="#" class="btn btn-primary cart-btn ">Add to Cart</a>
+            </div>
           </div>
         </div>`;
-  productsDiv.insertAdjacentHTML("beforeend", productCard);
-});
+    productsDiv.insertAdjacentHTML("beforeend", productCard);
+  });
+
+  // align-items-center
+  // flex-sm-column
+}
+
+// Function to filter out the products based on search input & price range
+function handleSearchQuery(event) {
+  try {
+    const searchQuery = searchInputEle.value.toLowerCase();
+    const priceRange = selectRangeEle.value;
+    console.log(searchQuery, priceRange);
+
+    let min = 0;
+    let max = Infinity;
+
+    if (priceRange != "") {
+      [min, max] = priceRange.split("-");
+    }
+
+    const filteredProducts = products.filter((prod) => {
+      const inputCondition =
+        prod.name.toLowerCase().includes(searchQuery) ||
+        prod.description.toLowerCase().includes(searchQuery);
+      const priceRangeCondition =
+        prod.price >= Number(min) && prod.price <= Number(max);
+      return inputCondition && priceRangeCondition;
+    });
+    if (filteredProducts.length == 0) {
+      productsDiv.innerHTML = `<div class="alert alert-info" role="alert">
+                                  Sorry! No products available with provided filter.
+                              </div>`;
+      return;
+    }
+    displayProducts(filteredProducts);
+  } catch (error) {
+    console.log(error);
+    productsDiv.innerHTML = `<div class="alert alert-info" role="alert">
+                                  Sorry! there is some error while filtering out the products.
+                              </div>`;
+  }
+}
