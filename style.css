@@ -279,17 +279,35 @@ footer p{
     padding: 30px 15px;
     border: 1px solid gray;
     border-radius: 5px;
+    background-color: white;
+
 }
 
+/* input[type = "radio"]{
+    appearance: none;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border: 1px solid rgb(220, 86, 112);
+
+}
+
+input[type = "radio"]:checked{
+    background-color: rgb(220, 86, 112);
+} */
+
 .signIn-Up-label{
-    background-color: rgb(167, 164, 164);
     color: rgb(9, 9, 159);
     padding: 15px 30px;
     margin-top: 10px;
+    border: 1px solid rgb(220, 86, 112);
+    border-radius: 5px;
+    color: rgb(224, 73, 103);
 }
 
 .form{
     display: none;
+    margin-top: 2rem;
 }
 
 #signIn:checked ~ .signin-form{
@@ -311,19 +329,31 @@ form{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* align-items: center; */
     margin-top: 1em;
 }
 
 form input{
     box-sizing: border-box;
-    padding: 10px 10px;
-    /* border-radius: 5px; */
+    padding: 12px 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
 }
 
-/* form button{
+form .submit-btn{
+    padding: 12px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: white;
+    background-color: rgb(220, 86, 112);
+    color: whitesmoke;
+    cursor: pointer;
+}
 
-} */
+form .submit-btn:hover{
+    background-color: rgb(169, 76, 121);
+    color: whitesmoke;
+}
 
 /* Products Page Styling */
 .product-container h1{
