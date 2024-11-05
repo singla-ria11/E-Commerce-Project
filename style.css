@@ -20,11 +20,9 @@
     display: flex;
     justify-content: space-evenly;
     gap: 15px;
-}
-
-.nav-links {
     padding: 0px;
     list-style: none;
+    font-size: 1.1em;
 }
 
 .nav-links a{
@@ -35,7 +33,8 @@
 }
 
 .nav-links a:hover{
-    color: rgb(212, 116, 47);
+    color: rgb(239, 110, 136);
+    /* color: rgb(212, 116, 47); */
 }
 
 .hero{
@@ -51,6 +50,7 @@
 
 .hero h2{
     margin-top: 0px;
+    font-size: 1.6em;
 }
 
 .hero p{
@@ -125,13 +125,27 @@ button:hover{
     padding: 30px 0px 60px;
 }
 
-.categories h2, .featured-products h2, .testimonials h2, .product-features h2{
+.categories h2, .featured-products h2, .product-features h2{
     margin-bottom: 1em;
+    font-size: 2em;
+}
+
+.testimonials h2{
+    margin-bottom: 1em;
+    font-size: 1.6em;
 }
 
 .grid{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    width: 80%;
+    margin: auto;
+    gap: 1.6em;
+}
+
+.featured-products .grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     width: 80%;
     margin: auto;
     gap: 1.6em;
@@ -205,11 +219,13 @@ table{
     border-collapse:collapse;
     margin: 2em auto;
     border: 2px solid rgb(209, 98, 120);
+    width: 85%;
 }
 
 thead tr{
     background-color: rgb(209, 98, 120);
     color: whitesmoke;
+    font-size: 1.1em;
 }
 
 table th, table td{
@@ -238,6 +254,12 @@ footer p{
     margin: 0px ;
 }
 
+@media screen and (max-width:910px) {  
+  .featured-products .grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media screen and (max-width:768px) {
     .navbar{
         box-sizing: border-box;
@@ -249,8 +271,12 @@ footer p{
     }
 }
 
-@media screen and (max-width:480px) {
+@media screen and (max-width:520px) {
     .grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .featured-products .grid{
         grid-template-columns: repeat(1, 1fr);
     }
 
