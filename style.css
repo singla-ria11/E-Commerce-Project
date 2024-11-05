@@ -415,12 +415,19 @@ text-align: center;
     grid-template-columns: 85% 15%;
     gap: 10px;
     margin: 0 10px 0 30px ;
-    /* position: relative; */
 }
 
 #cart-items-container{
-    /* width: 82vw; */
     margin: 0 auto;
+}
+
+#cart-items-container .card{
+    padding: 5px 5px;
+}
+
+.actions{
+    display: flex;
+    justify-content: space-between;
 }
 
 .cart-summary{
@@ -431,6 +438,11 @@ text-align: center;
     top: 40px;
     z-index: 10;
     border-left: 1px solid lightgrey;
+}
+
+#cart-total{
+    font-size: 1.1em;
+    font-weight: 600;
 }
 
 
