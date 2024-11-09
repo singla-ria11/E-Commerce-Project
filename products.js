@@ -14,20 +14,22 @@ class Product {
   display() {
     return `<div class="col-xl-3 col-md-4 col-sm-6 mb-4">
          <div class="card h-100">
-            <img src=${this.image} class="card-img-top" alt="product image" />
+            <img src=${this.image} class="card-img-top" alt="${
+      this.name
+    } image" />
             <div class="card-body">
-            <h5 class="card-title">${this.name}</h5>
-            <p class="card-text">
+                 <h5 class="card-title">${this.name}</h5>
+                 <p class="card-text">
               ${this.description}
-            </p>
-            <p class="card-text fw-semibold">$${this.price.toFixed(2)}</p>
-            <div class="d-flex align-items-center flex-lg-row flex-sm-column gap-2">
-              <input type="number" class="product-quantity w-25" name="productQuantity" min="1" max="100" value="1"/>
-              <a href="#" class="btn btn-primary add-to-cart" data-product='${JSON.stringify(
-                this
-              )}'>Add to Cart</a>
+                 </p>
+                 <p class="card-text fw-semibold">$${this.price.toFixed(2)}</p>
+              <div class="d-flex align-items-center flex-lg-row flex-sm-column gap-2">
+                <input type="number" class="product-quantity w-25" name="productQuantity" min="1" max="100" value="1"/>
+                <a href="#" class="btn btn-primary add-to-cart" data-product='${JSON.stringify(
+                  this
+                )}'>Add to Cart</a>
+              </div>
             </div>
-          </div>
         </div>`;
   }
 }
@@ -39,10 +41,7 @@ class DiscountedProduct extends Product {
     this.discount = Number(discount);
   }
   display() {
-    const discountedPrice = (
-      this.price -
-      (this.discount / 100) * this.price
-    ).toFixed(2);
+    const discountedPrice = this.price - this.price * (this.discount / 100);
     return `<div class="col-xl-3 col-md-4 col-sm-6 mb-4">
          <div class="card h-100">
             <img src=${this.image} class="card-img-top" alt="product image" />
@@ -51,7 +50,9 @@ class DiscountedProduct extends Product {
             <p class="card-text">
               ${this.description}
             </p>
-            <p class="card-text fw-semibold">$${discountedPrice} &nbsp;<span class="badge rounded-pill bg-danger">${
+            <p class="card-text fw-semibold">$${discountedPrice.toFixed(
+              2
+            )} &nbsp;<span class="badge rounded-pill bg-danger">${
       this.discount
     }% OFF</span></p>
             <div class="d-flex align-items-center flex-lg-row flex-sm-column gap-2">
@@ -81,7 +82,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-searchInputEle.addEventListener("keyup", handleSearchQueryAndFilter);
+searchInputEle.addEventListener(
+  "keyup",
+  debounce(function () {
+    handleSearchQueryAndFilter(this.value);
+  }, 300)
+);
+
+// Uncomment to use throttling instead of debouncing
+// searchInput.addEventListener('input', throttle(function () {
+//     handleSearchQueryAndFilter(this.value);
+// }, 300)); // Throttle limit of 300ms
+
 selectRangeEle.addEventListener("change", handleSearchQueryAndFilter);
 
 // All functions.................
@@ -109,7 +121,6 @@ function displayDiscountedProduct(discount) {
   );
   productsDiv.innerHTML += discountedProduct.display();
   attachEventListeners();
-  // productsDiv.insertAdjacentHTML("beforeend", discountedProduct.display());
 }
 
 // Function to filter out the products based on search input & price range
@@ -148,6 +159,38 @@ function handleSearchQueryAndFilter(event) {
   }
 }
 
+// Debounce function
+function debounce(func, delay) {
+  let timerId;
+  return function (...args) {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+// Throttle function
+function throttle(func, limit) {
+  let lastFunc;
+  let lastRan = 0;
+  return function (...args) {
+    const context = this;
+    const now = Date.now();
+    if (now - lastRan >= limit) {
+      func.apply(context, args);
+      lastRan = now;
+    } else {
+      clearTimeout(lastFunc);
+      lastFunc = setTimeout(function () {
+        func.apply(context, args);
+        lastRan = now;
+      }, limit - (now - lastRan));
+    }
+  };
+}
+
+// function to attach Event Listeners to all the add-to-cart buttons
 function attachEventListeners() {
   document.querySelectorAll(".add-to-cart").forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -170,6 +213,7 @@ function attachEventListeners() {
   });
 }
 
+// function to handle add-to-cart button
 function addToCart(product, quantity) {
   try {
     let cart = JSON.parse(localStorage.getItem("cartItems")) || []; // Get existing cart or initialize empty array
